@@ -57,23 +57,20 @@
   <section id="heroSection" class="hero-section" tabindex="0" role="button"
     aria-label="Tap or press Enter to open invitation">
     <!-- Main 3D Door & Floral Intro Video -->
-    <video id="heroVideo" class="hero-video" src="assets/video/demo-v3-royal-grace.mp4"
-      poster="assets/images/hero-poster.jpg" playsinline webkit-playsinline muted preload="auto"
+    <video id="heroVideo" class="hero-video" src="assets/video/demo-v3-royal-grace.mp4" poster="assets/images/hero-poster.jpg" playsinline webkit-playsinline muted preload="auto"
       disablePictureInPicture controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"></video>
 
-    <!-- Tap to Open Invitation Prompt (shown when autoplay is blocked or user gesture required) -->
-    <div id="tapHint" class="tap-to-open-hint" role="button" aria-label="Tap to open invitation">
+    <!-- Opening Screen Tap Prompt -->
+    <div id="tapHint" class="tap-to-open-hint" role="button" tabindex="0" aria-label="Tap to open invitation">
       <div class="tap-icon-ring">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e6c687" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
-          <polygon points="10 8 16 12 10 16 10 8" fill="#e6c687"></polygon>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="6 3 20 12 6 21 6 3"></polygon>
         </svg>
       </div>
-      <span class="tap-text">Tap to open invitation</span>
+      <span class="tap-text" id="tapPromptText">Tap to open invitation</span>
     </div>
 
-    <!-- Couple Identity Overlay (Revealed upon video completion) -->
+    <!-- Couple Identity Overlay (Revealed strictly after opening video ends) -->
     <div id="coupleOverlay" class="couple-overlay">
       <!-- Heart Glyph -->
       <div class="hero-heart-icon">

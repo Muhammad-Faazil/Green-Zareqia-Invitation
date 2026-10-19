@@ -98,18 +98,10 @@ body.locked .invitation-body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0f0f0f;
-  background-image: url('assets/images/hero-poster.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: #3e5038 url('assets/images/hero-poster.jpg') center center / cover no-repeat;
   z-index: 10;
   cursor: pointer;
   outline: none;
-}
-
-.hero-section.video-ended {
-  background-image: url('assets/images/hero-end-frame.jpg');
 }
 
 .hero-video {
@@ -122,28 +114,34 @@ body.locked .invitation-body {
   z-index: 2;
   user-select: none;
   -webkit-user-drag: none;
-  background-color: transparent;
+  background: transparent;
 }
 
 /* Tap to Open Hint */
 .tap-to-open-hint {
   position: absolute;
-  bottom: 12%;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 15;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   color: #fff;
   cursor: pointer;
   pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
   animation: pulseHint 2.4s infinite ease-in-out;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .tap-to-open-hint.hidden {
   opacity: 0 !important;
-  visibility: hidden !important;
   display: none !important;
   animation: none !important;
   pointer-events: none !important;
@@ -153,27 +151,44 @@ body.locked .invitation-body {
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  border: 1.5px solid rgba(201, 169, 110, 0.7);
-  background: rgba(15, 15, 15, 0.6);
+  border: 1.5px solid rgba(201, 169, 110, 0.85);
+  background: rgba(45, 58, 40, 0.75);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 20px rgba(201, 169, 110, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(201, 169, 110, 0.35);
+  color: #faeed9;
+  transition: all 0.3s ease;
+}
+
+.tap-to-open-hint:hover .tap-icon-ring,
+.tap-to-open-hint:active .tap-icon-ring {
+  transform: scale(1.08);
+  border-color: rgba(255, 235, 180, 0.95);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 169, 110, 0.5);
+}
+
+.tap-to-open-hint.retry .tap-icon-ring {
+  border-color: rgba(230, 180, 140, 0.9);
+  background: rgba(70, 45, 35, 0.8);
 }
 
 .tap-text {
   font-family: var(--font-cormorant);
-  font-size: 0.95rem;
-  letter-spacing: 0.2em;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #f7f2e6;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.9);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 @keyframes pulseHint {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.9; }
-  50% { transform: translateY(-6px) scale(1.04); opacity: 1; }
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.92; }
+  50% { transform: translateX(-50%) translateY(-6px) scale(1.04); opacity: 1; }
 }
 
 /* Couple Names & Title Overlay */
@@ -192,7 +207,7 @@ body.locked .invitation-body {
   opacity: 0;
   visibility: hidden;
   transform: translateY(30px);
-  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 1.6s;
 }
 
 @media (min-width: 768px) {
@@ -205,7 +220,7 @@ body.locked .invitation-body {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  pointer-events: auto;
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0s;
 }
 
 .hero-heart-icon {
@@ -300,7 +315,7 @@ body.locked .invitation-body {
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 1.2s ease, visibility 1.2s ease;
+  transition: opacity 1.2s ease, visibility 0s 1.2s;
 }
 
 .scroll-indicator.revealed {
@@ -308,6 +323,7 @@ body.locked .invitation-body {
   visibility: visible;
   pointer-events: auto;
   animation: bounceScroll 2s infinite ease-in-out;
+  transition: opacity 1.2s ease, visibility 0s 0s;
 }
 
 .scroll-text {

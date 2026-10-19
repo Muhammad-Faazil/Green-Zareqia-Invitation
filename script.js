@@ -17,31 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const musicIconOff = document.getElementById('musicIconOff');
   const heroSection = document.getElementById('heroSection');
 
+  let isStarting = false;
   let hasStarted = false;
   let hasRevealed = false;
-  let fallbackTimer = null;
 
   // ---------------------------------------------------------------------------
-  // 2. Video Opening Sequence & Couple Reveal
+  // 2. Video Opening Sequence & Couple Reveal (Strict Sequence)
   // ---------------------------------------------------------------------------
   const revealCoupleDetails = () => {
     if (hasRevealed) return;
     hasRevealed = true;
 
-    if (fallbackTimer) {
-      clearTimeout(fallbackTimer);
-      fallbackTimer = null;
-    }
+    // Cleanly pause video on its final frame
+    try {
+      heroVideo.pause();
+    } catch (_) {}
 
-    if (tapHint) {
-      tapHint.classList.add('hidden');
-    }
+    // Lock stage background on heroSection
+    heroSection.style.backgroundImage = "url('assets/images/hero-end-frame.jpg')";
 
-    if (heroSection) {
-      heroSection.classList.add('video-ended');
-    }
-
+    // Unlock page scrolling for the main invitation body
     document.body.classList.remove('locked');
+
+    // Reveal couple identity overlay & scroll indicator
     if (coupleOverlay) {
       coupleOverlay.classList.add('revealed');
     }
@@ -50,159 +48,127 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const onVideoEnded = () => {
-    if (heroVideo && !heroVideo.paused) {
-      heroVideo.pause();
-    }
-    revealCoupleDetails();
-  };
-
-  const startPlayback = (isUserGesture = false) => {
+  const showRetryOption = (message = 'Tap to retry opening') => {
     if (hasRevealed) return;
-
-    if (isUserGesture) {
-      hasStarted = true;
-      if (tapHint) {
-        tapHint.classList.add('hidden');
-      }
-      // If user tapped, start background music safely within gesture
-      if (bgMusic && bgMusic.paused) {
-        bgMusic.volume = 0.7;
-        bgMusic.play().then(() => {
-          updateMusicIcons(false);
-        }).catch((err) => {
-          console.log('Audio playback waiting:', err);
-          updateMusicIcons(true);
-        });
-      }
+    isStarting = false;
+    hasStarted = false;
+    if (tapHint) {
+      tapHint.classList.remove('hidden');
+      tapHint.classList.add('retry');
     }
-
-    if (!heroVideo) {
-      revealCoupleDetails();
-      return;
-    }
-
-    heroVideo.muted = true;
-    heroVideo.playsInline = true;
-
-    const playPromise = heroVideo.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        hasStarted = true;
-        if (tapHint) {
-          tapHint.classList.add('hidden');
-        }
-
-        // Set safety fallback timer (only fires if video stalls completely for > 12 seconds)
-        if (!fallbackTimer) {
-          const durationSec = (heroVideo.duration && !isNaN(heroVideo.duration) && heroVideo.duration > 0)
-            ? heroVideo.duration
-            : 10.0;
-          fallbackTimer = setTimeout(() => {
-            if (!hasRevealed) {
-              console.log('Video safety fallback fired');
-              revealCoupleDetails();
-            }
-          }, (durationSec + 2.5) * 1000);
-        }
-      }).catch((err) => {
-        console.log('Video play prevented or failed:', err);
-        if (isUserGesture) {
-          // If user tapped to open and playback still failed, don't leave on poster forever
-          revealCoupleDetails();
-        } else {
-          // Autoplay was blocked on page load: show the elegant tap hint
-          if (tapHint) {
-            tapHint.classList.remove('hidden');
-          }
-        }
-      });
+    const promptText = document.getElementById('tapPromptText');
+    if (promptText) {
+      promptText.textContent = message;
     }
   };
 
-  if (heroVideo) {
-    // When video completes its 10-second opening animation
-    heroVideo.addEventListener('ended', onVideoEnded);
+  const startInvitation = () => {
+    if (isStarting || hasStarted || hasRevealed) return;
+    isStarting = true;
 
-    // Precise time tracking: reveal only once video reaches its final resting frame
-    heroVideo.addEventListener('timeupdate', () => {
-      const dur = (heroVideo.duration && !isNaN(heroVideo.duration) && heroVideo.duration > 0)
-        ? heroVideo.duration
-        : 10.0;
-      if (heroVideo.currentTime >= dur - 0.35) {
-        onVideoEnded();
-      }
-    });
-
-    // When video starts playing, hide the tap hint
-    heroVideo.addEventListener('playing', () => {
-      hasStarted = true;
-      if (tapHint) {
-        tapHint.classList.add('hidden');
-      }
-    });
-
-    // Graceful error fallback
-    heroVideo.addEventListener('error', (e) => {
-      console.log('Hero video playback error:', e);
-      revealCoupleDetails();
-    });
-
-    // If video can play and hasn't started yet, attempt autoplay
-    heroVideo.addEventListener('canplay', () => {
-      if (!hasStarted && !hasRevealed) {
-        startPlayback(false);
-      }
-    }, { once: true });
-  }
-
-  // Handle tap or click anywhere on hero section or tapHint
-  const handleHeroTap = (e) => {
-    // Ignore clicks on floating music toggle button
-    if (e.target && e.target.closest('#musicToggleBtn')) {
-      return;
+    // Hide opening tap hint immediately
+    if (tapHint) {
+      tapHint.classList.add('hidden');
+      tapHint.classList.remove('retry');
     }
 
-    if (!hasStarted) {
-      startPlayback(true);
-    } else if (!hasRevealed && bgMusic && bgMusic.paused) {
-      // User tapped while video was playing -> start audio
+    // Configure inline muted playback for iOS Safari & Android
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.playsInline = true;
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
+    heroVideo.currentTime = 0;
+
+    // Play background audio within user interaction gesture
+    if (bgMusic) {
       bgMusic.volume = 0.7;
       bgMusic.play().then(() => {
         updateMusicIcons(false);
-      }).catch(() => {});
+      }).catch((err) => {
+        console.log('Audio autoplay waiting for user interaction:', err);
+        updateMusicIcons(true);
+      });
+    }
+
+    // Start video playback directly within the user gesture
+    try {
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          hasStarted = true;
+          isStarting = false;
+        }).catch((err) => {
+          console.warn('Video play promise rejected:', err);
+          showRetryOption('Tap to retry opening');
+        });
+      } else {
+        hasStarted = true;
+        isStarting = false;
+      }
+    } catch (err) {
+      console.warn('Video play exception:', err);
+      showRetryOption('Tap to retry opening');
     }
   };
 
-  if (heroSection) {
-    heroSection.addEventListener('click', handleHeroTap);
-    heroSection.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        handleHeroTap(e);
-      }
+  // Video error handling - shows retry option rather than silent reveal or black screen
+  heroVideo.addEventListener('error', (e) => {
+    console.warn('heroVideo error event:', e);
+    if (!hasRevealed) {
+      showRetryOption('Tap to retry opening');
+    }
+  });
+
+  // Reveal couple details STRICTLY when the opening video finishes
+  heroVideo.addEventListener('ended', () => {
+    revealCoupleDetails();
+  });
+
+  // User interaction triggers
+  const handleUserTrigger = (e) => {
+    if (isStarting || hasStarted || hasRevealed) return;
+    startInvitation();
+  };
+
+  heroSection.addEventListener('click', handleUserTrigger);
+  heroSection.addEventListener('touchend', (e) => {
+    if (!isStarting && !hasStarted && !hasRevealed) {
+      handleUserTrigger(e);
+    }
+  });
+
+  if (tapHint) {
+    tapHint.addEventListener('click', (e) => {
+      e.stopPropagation();
+      handleUserTrigger(e);
     });
+    tapHint.addEventListener('touchend', (e) => {
+      e.stopPropagation();
+      handleUserTrigger(e);
+    });
+  }
+
+  // Support keyboard interaction (Enter or Space)
+  const handleKeyTrigger = (e) => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      handleUserTrigger(e);
+    }
+  };
+  heroSection.addEventListener('keydown', handleKeyTrigger);
+  if (tapHint) {
+    tapHint.addEventListener('keydown', handleKeyTrigger);
   }
 
   // Clicking scroll indicator smoothly jumps to welcome section
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', (e) => {
-      e.stopPropagation();
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: 'smooth'
-      });
+  scrollIndicator.addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
     });
-  }
-
-  // Respect user preference for reduced motion
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    revealCoupleDetails();
-  } else {
-    // Attempt muted autoplay on load
-    startPlayback(false);
-  }
+  });
 
   // ---------------------------------------------------------------------------
   // 3. Background Music Controls
@@ -222,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
   musicToggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (!hasStarted) {
-      startPlayback(true);
+      startInvitation();
       return;
     }
 
