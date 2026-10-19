@@ -17,16 +17,53 @@ document.addEventListener('DOMContentLoaded', () => {
   const musicIconOff = document.getElementById('musicIconOff');
   const heroSection = document.getElementById('heroSection');
 
+  const HERO_REVEAL_DELAY_MS = 6000; // Exactly 6 seconds of actual video playback before hero text reveal
   let isStarting = false;
   let hasStarted = false;
-  let hasRevealed = false;
+  let hasRevealedHero = false;
+  let hasCompletedVideo = false;
+
+  let accumulatedPlaybackMs = 0;
+  let playbackSegmentStartTime = null;
+  let heroRevealTimerId = null;
 
   // ---------------------------------------------------------------------------
-  // 2. Video Opening Sequence & Couple Reveal (Strict Sequence)
+  // 2. Video Opening Sequence & Timed Hero Reveal
   // ---------------------------------------------------------------------------
-  const revealCoupleDetails = () => {
-    if (hasRevealed) return;
-    hasRevealed = true;
+
+  /**
+   * Reveal the hero text overlay (names, intro, bio) smoothly at 6.0s of actual playback.
+   * Video continues playing uninterrupted until completion.
+   */
+  const revealHeroText = () => {
+    if (hasRevealedHero) return;
+    hasRevealedHero = true;
+
+    if (heroRevealTimerId) {
+      clearTimeout(heroRevealTimerId);
+      heroRevealTimerId = null;
+    }
+    playbackSegmentStartTime = null;
+
+    if (coupleOverlay) {
+      coupleOverlay.classList.add('revealed');
+    }
+  };
+
+  /**
+   * Finalize the opening sequence when the video finishes (~10.0s):
+   * - Ensures hero text is revealed if not already
+   * - Pauses video cleanly on final frame
+   * - Sets stage background
+   * - Unlocks page scrolling
+   * - Displays scroll prompt indicator
+   */
+  const onVideoComplete = () => {
+    if (hasCompletedVideo) return;
+    hasCompletedVideo = true;
+
+    // Safety check: ensure hero text is revealed
+    revealHeroText();
 
     // Cleanly pause video on its final frame
     try {
@@ -39,19 +76,63 @@ document.addEventListener('DOMContentLoaded', () => {
     // Unlock page scrolling for the main invitation body
     document.body.classList.remove('locked');
 
-    // Reveal couple identity overlay & scroll indicator
-    if (coupleOverlay) {
-      coupleOverlay.classList.add('revealed');
-    }
+    // Reveal scroll indicator to invite exploring the rest of the invitation
     if (scrollIndicator) {
       scrollIndicator.classList.add('revealed');
     }
   };
 
+  /**
+   * Pause playback timer accumulation during video buffering, stalls, or pauses.
+   */
+  const pausePlaybackTimer = () => {
+    if (hasRevealedHero) return;
+
+    if (playbackSegmentStartTime !== null) {
+      const elapsed = performance.now() - playbackSegmentStartTime;
+      accumulatedPlaybackMs += elapsed;
+      playbackSegmentStartTime = null;
+    }
+
+    if (heroRevealTimerId) {
+      clearTimeout(heroRevealTimerId);
+      heroRevealTimerId = null;
+    }
+  };
+
+  /**
+   * Resume playback timer accumulation when actual playback begins or resumes.
+   */
+  const resumePlaybackTimer = () => {
+    if (hasRevealedHero) return;
+
+    // If media timeline has already passed 6.0s, trigger immediately
+    if (heroVideo.currentTime >= 6.0 || accumulatedPlaybackMs >= HERO_REVEAL_DELAY_MS) {
+      revealHeroText();
+      return;
+    }
+
+    if (playbackSegmentStartTime === null) {
+      playbackSegmentStartTime = performance.now();
+      const remainingMs = Math.max(0, HERO_REVEAL_DELAY_MS - accumulatedPlaybackMs);
+      if (heroRevealTimerId) {
+        clearTimeout(heroRevealTimerId);
+      }
+      heroRevealTimerId = setTimeout(() => {
+        revealHeroText();
+      }, remainingMs);
+    }
+  };
+
   const showRetryOption = (message = 'Tap to retry opening') => {
-    if (hasRevealed) return;
+    if (hasCompletedVideo || hasRevealedHero) return;
     isStarting = false;
     hasStarted = false;
+
+    pausePlaybackTimer();
+    accumulatedPlaybackMs = 0;
+    playbackSegmentStartTime = null;
+
     if (tapHint) {
       tapHint.classList.remove('hidden');
       tapHint.classList.add('retry');
@@ -63,8 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const startInvitation = () => {
-    if (isStarting || hasStarted || hasRevealed) return;
+    if (isStarting || hasStarted || hasCompletedVideo) return;
     isStarting = true;
+
+    // Reset playback timer state for fresh start or retry
+    accumulatedPlaybackMs = 0;
+    playbackSegmentStartTime = null;
+    if (heroRevealTimerId) {
+      clearTimeout(heroRevealTimerId);
+      heroRevealTimerId = null;
+    }
 
     // Hide opening tap hint immediately
     if (tapHint) {
@@ -96,15 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const playPromise = heroVideo.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          hasStarted = true;
-          isStarting = false;
+          // Playback promise resolved; 'playing' event will trigger timer
         }).catch((err) => {
           console.warn('Video play promise rejected:', err);
           showRetryOption('Tap to retry opening');
         });
-      } else {
-        hasStarted = true;
-        isStarting = false;
       }
     } catch (err) {
       console.warn('Video play exception:', err);
@@ -112,28 +197,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Video event listeners for strict timing and playback tracking
+  heroVideo.addEventListener('playing', () => {
+    hasStarted = true;
+    isStarting = false;
+    resumePlaybackTimer();
+  });
+
+  heroVideo.addEventListener('pause', () => {
+    pausePlaybackTimer();
+  });
+
+  heroVideo.addEventListener('waiting', () => {
+    pausePlaybackTimer();
+  });
+
+  heroVideo.addEventListener('stalled', () => {
+    pausePlaybackTimer();
+  });
+
+  heroVideo.addEventListener('timeupdate', () => {
+    // Media time check as synchronization guard
+    if (!hasRevealedHero && heroVideo.currentTime >= 6.0) {
+      revealHeroText();
+    }
+    // Completion safeguard if browser skips or delays 'ended' event near 10s
+    if (!hasCompletedVideo && heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.15) {
+      onVideoComplete();
+    }
+  });
+
   // Video error handling - shows retry option rather than silent reveal or black screen
   heroVideo.addEventListener('error', (e) => {
     console.warn('heroVideo error event:', e);
-    if (!hasRevealed) {
+    if (!hasCompletedVideo) {
       showRetryOption('Tap to retry opening');
     }
   });
 
-  // Reveal couple details STRICTLY when the opening video finishes
+  // Final completion when video reaches the end
   heroVideo.addEventListener('ended', () => {
-    revealCoupleDetails();
+    onVideoComplete();
   });
 
   // User interaction triggers
   const handleUserTrigger = (e) => {
-    if (isStarting || hasStarted || hasRevealed) return;
+    if (isStarting || hasStarted || hasCompletedVideo) return;
     startInvitation();
   };
 
   heroSection.addEventListener('click', handleUserTrigger);
   heroSection.addEventListener('touchend', (e) => {
-    if (!isStarting && !hasStarted && !hasRevealed) {
+    if (!isStarting && !hasStarted && !hasCompletedVideo) {
       handleUserTrigger(e);
     }
   });
