@@ -99,9 +99,17 @@ body.locked .invitation-body {
   align-items: center;
   justify-content: center;
   background-color: #0f0f0f;
+  background-image: url('assets/images/hero-poster.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   z-index: 10;
   cursor: pointer;
   outline: none;
+}
+
+.hero-section.video-ended {
+  background-image: url('assets/images/hero-end-frame.jpg');
 }
 
 .hero-video {
@@ -114,12 +122,13 @@ body.locked .invitation-body {
   z-index: 2;
   user-select: none;
   -webkit-user-drag: none;
+  background-color: transparent;
 }
 
 /* Tap to Open Hint */
 .tap-to-open-hint {
   position: absolute;
-  bottom: 15%;
+  bottom: 12%;
   z-index: 15;
   display: flex;
   flex-direction: column;
@@ -127,12 +136,14 @@ body.locked .invitation-body {
   gap: 0.5rem;
   color: #fff;
   cursor: pointer;
-  pointer-events: none;
+  pointer-events: auto;
   animation: pulseHint 2.4s infinite ease-in-out;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .tap-to-open-hint.hidden {
   opacity: 0 !important;
+  visibility: hidden !important;
   display: none !important;
   animation: none !important;
   pointer-events: none !important;
@@ -179,8 +190,9 @@ body.locked .invitation-body {
   text-align: center;
   pointer-events: none;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(30px);
-  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 768px) {
@@ -191,7 +203,9 @@ body.locked .invitation-body {
 
 .couple-overlay.revealed {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .hero-heart-icon {
@@ -285,11 +299,14 @@ body.locked .invitation-body {
   gap: 0.35rem;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1.2s ease;
+  visibility: hidden;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
 }
 
 .scroll-indicator.revealed {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
   animation: bounceScroll 2s infinite ease-in-out;
 }
 
