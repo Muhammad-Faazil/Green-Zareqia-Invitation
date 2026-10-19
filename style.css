@@ -476,159 +476,143 @@ body.locked .invitation-body {
   margin: 0 auto;
 }
 
-/* 9. Large Green Heart-Shaped Scratch Surface */
-.heart-scratch-wrapper {
-  position: relative;
-  aspect-ratio: 13 / 12;
-  width: 100%;
-  max-width: 230px;
-  margin: 0 auto;
+/* 9. Three Circular Date Scratch Cards */
+.date-scratch-subtitle {
+  font-family: var(--font-cormorant);
+  font-size: clamp(0.85rem, 2.4vw, 1.05rem);
+  font-style: italic;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  margin-top: 0.35rem;
+  margin-bottom: 1.6rem;
 }
 
-@media (min-width: 640px) {
-  .heart-scratch-wrapper {
-    max-width: 260px;
+.date-cards-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+.date-cards-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .date-cards-row {
+    gap: 1.25rem;
   }
 }
 
-.heart-shadow-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  clip-path: url('#royal-heart-clip');
-  background: transparent;
-  filter: drop-shadow(rgba(60, 70, 50, 0.3) 0px 10px 18px);
-}
-
-.heart-clipped-area {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  clip-path: url('#royal-heart-clip');
-}
-
-.heart-revealed-content {
-  position: absolute;
-  inset: 0;
+.date-card-unit {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.date-card-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 32%, #fffdf9 0%, #f7f1e4 65%, #ebdcc8 100%);
+  border: 1px solid rgba(138, 122, 78, 0.45);
+  box-shadow:
+    0 8px 22px -4px rgba(59, 68, 50, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+}
+
+.date-card-box:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 26px -4px rgba(59, 68, 50, 0.24),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.date-card-revealed {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 0.25rem;
   text-align: center;
-  background-color: rgb(249, 247, 241);
-  background-image: 
-    radial-gradient(rgba(254, 253, 251, 0.9) 0%, rgba(239, 234, 220, 0.5) 70%, rgba(226, 219, 202, 0.6) 100%),
-    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 1px, transparent 1px, transparent 8px);
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 35%, #fffdf9 0%, #f7f2e5 70%, #ebdcc8 100%);
 }
 
-.revealed-intro {
-  font-family: var(--font-dancing);
-  font-size: 1.35rem;
-  font-style: italic;
-  color: rgb(74, 92, 61);
-  margin-bottom: 0.25rem;
-}
-
-.revealed-date {
+.date-card-val {
   font-family: var(--font-playfair);
-  font-size: 1.15rem;
   font-weight: 700;
-  color: rgb(39, 51, 31);
-  margin-bottom: 0.2rem;
+  color: var(--gold);
+  line-height: 1;
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(138, 122, 78, 0.15);
+  display: inline-block;
+  user-select: none;
 }
 
-.revealed-day {
-  font-family: var(--font-dancing);
-  font-size: 1.05rem;
-  color: rgb(79, 100, 64);
-  margin-bottom: 0.1rem;
+.date-card-day-val,
+.date-card-year-val {
+  font-size: clamp(1.6rem, 4.8vw, 2.35rem);
 }
 
-.revealed-hijri {
-  font-family: var(--font-cormorant);
-  font-size: 0.85rem;
-  font-style: italic;
-  font-weight: 500;
-  color: rgb(110, 95, 60);
-  margin-bottom: 0.15rem;
-  letter-spacing: 0.03em;
+.date-card-month-val {
+  font-size: clamp(0.85rem, 2.45vw, 1.28rem);
+  letter-spacing: -0.01em;
+  padding: 0 4px;
+  white-space: nowrap;
 }
 
-.revealed-time {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  color: rgb(95, 109, 85);
-}
-
-#scratchCanvas {
+.date-card-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  border-radius: 50%;
+  cursor: grab;
   touch-action: none;
   z-index: 2;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.heart-vignette {
-  position: absolute;
-  inset: 0;
+.date-card-canvas:active {
+  cursor: grabbing;
+}
+
+.date-card-canvas.revealed {
+  opacity: 0;
   pointer-events: none;
-  z-index: 3;
-  background: radial-gradient(rgba(0, 0, 0, 0) 78%, rgba(20, 8, 0, 0.55) 92%, rgba(10, 4, 0, 0.85) 100%);
-  mix-blend-mode: multiply;
 }
 
-.heart-highlight {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-  background: radial-gradient(at 38% 22%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 32%);
-}
-
-.heart-stroke-outline {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 4;
-}
-
-/* Scratch Celebration Particles Container & Keyframes */
-.scratch-particles-container {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: visible;
-  z-index: 30;
-}
-
-.scratch-particle {
-  position: absolute;
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
-  display: inline-block;
-  will-change: transform, opacity;
-  animation: floatParticle var(--duration, 1.4s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes floatParticle {
-  0% {
-    transform: translate(0, 0) scale(0.6) rotate(0deg);
-    opacity: 1;
-  }
-  60% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: translate(var(--tx, 0px), var(--ty, -60px)) scale(var(--scale, 1.1)) rotate(var(--rot, 20deg));
-    opacity: 0;
-  }
+.date-card-label {
+  display: block;
+  margin-top: 0.65rem;
+  font-family: var(--font-cormorant);
+  font-size: clamp(0.72rem, 2vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  text-align: center;
 }
 
 /* Save the Date Pill Button */

@@ -152,198 +152,192 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---------------------------------------------------------------------------
-  // 4. Large Green Glitter Heart Scratch Card (HTML5 Canvas)
+  // 4. Three Circular Date Scratch Cards (HTML5 Canvas)
   // ---------------------------------------------------------------------------
-  const initScratchCard = () => {
-    const canvas = document.getElementById('scratchCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const width = canvas.width;
-    const height = canvas.height;
+  const initScratchCards = () => {
+    const cardBoxes = document.querySelectorAll('.date-card-box');
+    if (!cardBoxes.length) return;
 
-    // Render green glitter metallic surface matching original screenshot
-    const drawGlitterHeartSurface = () => {
-      ctx.clearRect(0, 0, width, height);
+    // Render solid uniform dark olive green scratch coating matching the Save the Date button
+    const drawCardSurface = (canvas) => {
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
 
-      // Base radial green gradient
-      const grad = ctx.createRadialGradient(
-        width * 0.45, height * 0.35, 10,
-        width * 0.5, height * 0.55, width * 0.6
-      );
-      grad.addColorStop(0, '#869f78');
-      grad.addColorStop(0.35, '#68825c');
-      grad.addColorStop(0.75, '#4f6745');
-      grad.addColorStop(1, '#3b4e34');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
+      ctx.save();
+      ctx.clearRect(0, 0, w, h);
 
-      // Sparkles and glitter noise particles
-      for (let i = 0; i < 900; i++) {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
-        const radius = Math.random() * 1.5;
-        const alpha = Math.random() * 0.55 + 0.15;
-        const isGold = Math.random() > 0.6;
-        ctx.fillStyle = isGold
-          ? `rgba(235, 215, 170, ${alpha})`
-          : `rgba(255, 255, 255, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Larger bright specular star glints
-      for (let i = 0; i < 15; i++) {
-        const x = Math.random() * width * 0.8 + width * 0.1;
-        const y = Math.random() * height * 0.8 + height * 0.1;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-        ctx.beginPath();
-        ctx.arc(x, y, 2.2, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    };
-
-    drawGlitterHeartSurface();
-
-    const particlesContainer = document.getElementById('scratchParticles');
-    let isDrawing = false;
-    let scratchesCount = 0;
-    let isRevealedState = false;
-
-    // Particle glyphs and luxury palette
-    const particleGlyphs = ['🌸', '🍃', '🤍', '✨'];
-    const particleColors = ['#5f6d55', '#e8b4b8', '#faf7f0', '#c9a96e'];
-
-    const spawnParticle = (px, py, isBurst = false) => {
-      if (!particlesContainer) return;
-      // Strict concurrent limit to keep performance silky smooth
-      if (particlesContainer.childElementCount > 30) {
-        particlesContainer.firstElementChild.remove();
-      }
-
-      const particle = document.createElement('span');
-      particle.className = 'scratch-particle';
-      const glyph = particleGlyphs[Math.floor(Math.random() * particleGlyphs.length)];
-      const color = particleColors[Math.floor(Math.random() * particleColors.length)];
-      particle.textContent = glyph;
-      particle.style.color = color;
-      particle.style.left = `${px}px`;
-      particle.style.top = `${py}px`;
-
-      const tx = (Math.random() - 0.5) * (isBurst ? 100 : 45);
-      const ty = isBurst ? -(Math.random() * 80 + 50) : -(Math.random() * 55 + 30);
-      const rot = (Math.random() - 0.5) * 80;
-      const scale = Math.random() * 0.5 + 0.8;
-      const duration = Math.random() * 0.4 + 1.1;
-
-      particle.style.setProperty('--tx', `${tx}px`);
-      particle.style.setProperty('--ty', `${ty}px`);
-      particle.style.setProperty('--rot', `${rot}deg`);
-      particle.style.setProperty('--scale', scale);
-      particle.style.setProperty('--duration', `${duration}s`);
-      particle.style.fontSize = `${Math.floor(Math.random() * 6 + 12)}px`;
-
-      particlesContainer.appendChild(particle);
-
-      const cleanup = () => {
-        if (particle.parentNode) particle.parentNode.removeChild(particle);
-      };
-      particle.addEventListener('animationend', cleanup, { once: true });
-      setTimeout(cleanup, duration * 1000 + 100);
-    };
-
-    const triggerCelebrationBurst = () => {
-      if (!particlesContainer) return;
-      const rect = canvas.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      for (let i = 0; i < 16; i++) {
-        setTimeout(() => {
-          const offsetX = centerX + (Math.random() - 0.5) * 40;
-          const offsetY = centerY + (Math.random() - 0.5) * 40;
-          spawnParticle(offsetX, offsetY, true);
-        }, i * 35);
-      }
-    };
-
-    const scratch = (clientX, clientY) => {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const x = (clientX - rect.left) * scaleX;
-      const y = (clientY - rect.top) * scaleY;
-
-      ctx.globalCompositeOperation = 'destination-out';
+      // Clip drawing strictly to the circle
       ctx.beginPath();
-      ctx.arc(x, y, 26, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.arc(w / 2, h / 2, w / 2, 0, Math.PI * 2);
+      ctx.clip();
 
-      // Emit floating particles relative to the container
-      const localX = clientX - rect.left;
-      const localY = clientY - rect.top;
-      scratchesCount++;
+      // Solid, uniform dark olive green surface
+      ctx.fillStyle = '#40563A';
+      ctx.fillRect(0, 0, w, h);
 
-      if (scratchesCount % 2 === 0) {
-        spawnParticle(localX, localY);
-      }
+      ctx.restore();
+    };
 
-      if (scratchesCount % 12 === 0) {
+    // Initialize individual scratch card
+    const setupCard = (cardBox) => {
+      const canvas = cardBox.querySelector('.date-card-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      drawCardSurface(canvas);
+
+      let isDrawing = false;
+      let lastPoint = null;
+      let scratchesCount = 0;
+      let isRevealedState = false;
+
+      const getCoords = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: (clientX - rect.left) * (w / rect.width),
+          y: (clientY - rect.top) * (h / rect.height),
+        };
+      };
+
+      const checkClearedPercent = () => {
+        if (isRevealedState) return;
+        try {
+          const imageData = ctx.getImageData(0, 0, w, h);
+          const data = imageData.data;
+          let transparentInsideCircle = 0;
+          let totalSampledInsideCircle = 0;
+          const stride = 16;
+          const cx = w / 2;
+          const cy = h / 2;
+          const rSq = (w / 2) * (w / 2);
+
+          for (let i = 3; i < data.length; i += stride * 4) {
+            const pixelIndex = (i - 3) / 4;
+            const px = pixelIndex % w;
+            const py = Math.floor(pixelIndex / w);
+            const dx = px - cx;
+            const dy = py - cy;
+            if (dx * dx + dy * dy <= rSq) {
+              totalSampledInsideCircle++;
+              if (data[i] === 0) {
+                transparentInsideCircle++;
+              }
+            }
+          }
+
+          if (totalSampledInsideCircle > 0) {
+            const percent = (transparentInsideCircle / totalSampledInsideCircle) * 100;
+            if (percent >= 50) {
+              isRevealedState = true;
+              canvas.classList.add('revealed');
+            }
+          }
+        } catch (e) {}
+      };
+
+      const scratch = (x, y, prev) => {
+        if (isRevealedState) return;
+        ctx.globalCompositeOperation = 'destination-out';
+
+        if (prev) {
+          ctx.beginPath();
+          ctx.moveTo(prev.x, prev.y);
+          ctx.lineTo(x, y);
+          ctx.lineWidth = 48;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, 24, 0, Math.PI * 2);
+        ctx.fill();
+
+        scratchesCount++;
+        if (scratchesCount % 10 === 0) {
+          checkClearedPercent();
+        }
+      };
+
+      const startScratch = (clientX, clientY) => {
+        isDrawing = true;
+        lastPoint = getCoords(clientX, clientY);
+        scratch(lastPoint.x, lastPoint.y, null);
+      };
+
+      const moveScratch = (clientX, clientY) => {
+        if (!isDrawing) return;
+        const current = getCoords(clientX, clientY);
+        scratch(current.x, current.y, lastPoint);
+        lastPoint = current;
+      };
+
+      const endScratch = () => {
+        if (!isDrawing) return;
+        isDrawing = false;
+        lastPoint = null;
         checkClearedPercent();
+      };
+
+      // Pointer events for unified Mouse, Stylus, and Touch support
+      if (window.PointerEvent) {
+        canvas.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+          startScratch(e.clientX, e.clientY);
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+          if (isDrawing) {
+            e.preventDefault();
+            moveScratch(e.clientX, e.clientY);
+          }
+        });
+
+        const handlePointerEnd = (e) => {
+          if (isDrawing) {
+            endScratch();
+            try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+          }
+        };
+
+        canvas.addEventListener('pointerup', handlePointerEnd);
+        canvas.addEventListener('pointercancel', handlePointerEnd);
+      } else {
+        // Fallback for older browsers
+        canvas.addEventListener('mousedown', (e) => {
+          startScratch(e.clientX, e.clientY);
+        });
+        window.addEventListener('mousemove', (e) => {
+          if (isDrawing) moveScratch(e.clientX, e.clientY);
+        });
+        window.addEventListener('mouseup', endScratch);
+
+        canvas.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          if (e.touches.length > 0) {
+            startScratch(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+          if (isDrawing && e.touches.length > 0) {
+            e.preventDefault();
+            moveScratch(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: false });
+
+        window.addEventListener('touchend', endScratch);
+        window.addEventListener('touchcancel', endScratch);
       }
     };
 
-    const checkClearedPercent = () => {
-      if (isRevealedState) return;
-      try {
-        const imageData = ctx.getImageData(0, 0, width, height);
-        const data = imageData.data;
-        let transparentPixels = 0;
-        const totalSampled = data.length / 4;
-
-        for (let i = 3; i < data.length; i += 16) {
-          if (data[i] === 0) transparentPixels++;
-        }
-
-        const percent = (transparentPixels / (totalSampled / 4)) * 100;
-        if (percent > 42) {
-          isRevealedState = true;
-          canvas.style.opacity = '0';
-          canvas.style.pointerEvents = 'none';
-          triggerCelebrationBurst();
-        }
-      } catch (e) {}
-    };
-
-    // Mouse events
-    canvas.addEventListener('mousedown', (e) => {
-      isDrawing = true;
-      scratch(e.clientX, e.clientY);
-    });
-    window.addEventListener('mousemove', (e) => {
-      if (isDrawing) scratch(e.clientX, e.clientY);
-    });
-    window.addEventListener('mouseup', () => { isDrawing = false; });
-
-    // Touch events
-    canvas.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      isDrawing = true;
-      const touch = e.touches[0];
-      scratch(touch.clientX, touch.clientY);
-    }, { passive: false });
-
-    canvas.addEventListener('touchmove', (e) => {
-      if (isDrawing && e.touches.length > 0) {
-        e.preventDefault();
-        const touch = e.touches[0];
-        scratch(touch.clientX, touch.clientY);
-      }
-    }, { passive: false });
-
-    window.addEventListener('touchend', () => { isDrawing = false; });
+    cardBoxes.forEach((cardBox) => setupCard(cardBox));
   };
 
-  initScratchCard();
+  initScratchCards();
 
   // ---------------------------------------------------------------------------
   // 5. Live Countdown Timer

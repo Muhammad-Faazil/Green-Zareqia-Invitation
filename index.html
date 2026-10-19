@@ -27,22 +27,11 @@
 
 <body class="locked">
 
-  <!-- Hidden SVG Clip-Path for Heart Scratch Surface -->
-  <svg width="0" height="0" aria-hidden="true" style="position: absolute;">
-    <defs>
-      <clipPath id="royal-heart-clip" clipPathUnits="objectBoundingBox">
-        <path
-          d="M0.5,0.96 C0.5,0.96 0.06,0.70 0.06,0.36 C0.06,0.18 0.20,0.06 0.32,0.06 C0.42,0.06 0.48,0.14 0.5,0.24 C0.52,0.14 0.58,0.06 0.68,0.06 C0.80,0.06 0.94,0.18 0.94,0.36 C0.94,0.70 0.5,0.96 0.5,0.96 Z">
-        </path>
-      </clipPath>
-    </defs>
-  </svg>
-
   <!-- Subtle Gold Pattern Background Overlay -->
   <div class="pattern-overlay" aria-hidden="true"></div>
 
   <!-- Background Music Audio -->
-  <audio id="bgMusic" loop preload="auto" src="assets/audio/music.mpeg"></audio>
+  <audio id="bgMusic" loop preload="auto" src="assets/audio/Slepless.mp3"></audio>
 
   <!-- Floating Audio Mute / Unmute Button -->
   <button id="musicToggleBtn" class="floating-music-btn" aria-label="Toggle background music" title="Toggle Music">
@@ -158,8 +147,8 @@
       </div>
     </section>
 
-    <!-- 2. Scratch to Reveal Section (Large Heart-Shaped Scratch Surface) -->
-    <section class="invitation-section text-center">
+    <!-- 2. The Date Scratch to Reveal Section (3 Rectangular Scratch Cards) -->
+    <section class="invitation-section text-center date-scratch-section">
       <!-- Wavy Decorative Divider -->
       <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
@@ -176,7 +165,7 @@
       </svg>
 
       <div class="content-container">
-        <h2 class="section-title">Scratch to Reveal</h2>
+        <h2 class="section-title date-heading">The Date</h2>
 
         <!-- Central Heart Divider -->
         <div class="section-heart-divider">
@@ -189,40 +178,44 @@
           <div class="h-line"></div>
         </div>
 
-        <!-- Heart Scratch Card Container -->
-        <div class="heart-scratch-wrapper">
-          <!-- Drop Shadow Layer -->
-          <div aria-hidden="true" class="heart-shadow-layer"></div>
+        <p class="date-scratch-subtitle">✦ Scratch to reveal the date ✦</p>
 
-          <!-- Clipped Heart Area -->
-          <div class="heart-clipped-area">
-            <!-- Revealed Date Content Beneath -->
-            <div class="heart-revealed-content">
-              <p class="revealed-intro">You're Invited!</p>
-              <p class="revealed-date">24 December 2026</p>
-              <p class="revealed-day">Thursday</p>
-              <p class="revealed-hijri">14 Rajab 1448 AH</p>
-              <p class="revealed-time">Nikah at 11:30 AM</p>
+        <!-- 3 Circular Scratch Cards Container -->
+        <div class="date-cards-wrapper">
+          <div class="date-cards-row">
+            <!-- DAY Card -->
+            <div class="date-card-unit">
+              <div class="date-card-box" id="cardDay">
+                <div class="date-card-revealed">
+                  <span class="date-card-val date-card-day-val">24</span>
+                </div>
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Day"></canvas>
+              </div>
+              <span class="date-card-label">DAY</span>
             </div>
 
-            <!-- Green Glitter Scratch Canvas -->
-            <canvas id="scratchCanvas" width="260" height="240"></canvas>
+            <!-- MONTH Card -->
+            <div class="date-card-unit">
+              <div class="date-card-box" id="cardMonth">
+                <div class="date-card-revealed">
+                  <span class="date-card-val date-card-month-val">December</span>
+                </div>
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Month"></canvas>
+              </div>
+              <span class="date-card-label">MONTH</span>
+            </div>
 
-            <!-- Vignette & Highlight Overlays -->
-            <div aria-hidden="true" class="heart-vignette"></div>
-            <div aria-hidden="true" class="heart-highlight"></div>
+            <!-- YEAR Card -->
+            <div class="date-card-unit">
+              <div class="date-card-box" id="cardYear">
+                <div class="date-card-revealed">
+                  <span class="date-card-val date-card-year-val">2026</span>
+                </div>
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Year"></canvas>
+              </div>
+              <span class="date-card-label">YEAR</span>
+            </div>
           </div>
-
-          <!-- Precise SVG Stroke Outline -->
-          <svg viewBox="0 0 100 100" class="heart-stroke-outline" preserveAspectRatio="none" aria-hidden="true">
-            <path
-              d="M50,96 C50,96 6,70 6,36 C6,18 20,6 32,6 C42,6 48,14 50,24 C52,14 58,6 68,6 C80,6 94,18 94,36 C94,70 50,96 50,96 Z"
-              fill="none" stroke="hsl(95, 22%, 32%)" stroke-width="1.2" vector-effect="non-scaling-stroke"
-              opacity="0.7"></path>
-          </svg>
-
-          <!-- Floating Celebration Particles Layer -->
-          <div id="scratchParticles" class="scratch-particles-container" aria-hidden="true"></div>
         </div>
 
         <!-- Save the Date Button -->
