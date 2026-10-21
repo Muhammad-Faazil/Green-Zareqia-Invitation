@@ -8,6 +8,8 @@
 
 /* 2. Theme CSS Variables */
 :root {
+  color-scheme: light only;
+  forced-color-adjust: none;
   --primary: rgb(74, 92, 61);            /* #4a5c3d / original template primary sage */
   --primary-dark: rgb(59, 68, 50);        /* #3b4432 / dark sage tone */
   --foreground: rgb(39, 51, 31);          /* #27331f / deep olive body text */
@@ -31,8 +33,10 @@
 }
 
 html {
+  color-scheme: light only;
+  forced-color-adjust: none;
   scroll-behavior: smooth;
-  background-color: #0f0f0f;
+  background-color: var(--parchment-base);
   color: var(--foreground);
   font-family: var(--font-lora);
   -webkit-font-smoothing: antialiased;
@@ -42,7 +46,9 @@ html {
 }
 
 body {
-  background-color: #0f0f0f;
+  color-scheme: light only;
+  forced-color-adjust: none;
+  background-color: var(--parchment-base);
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
@@ -51,11 +57,13 @@ body {
 }
 
 button, a, input, select, textarea {
+  color-scheme: light only;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
 body.locked {
+  background-color: #3e5038 !important;
   overflow: hidden !important;
   height: 100vh !important;
   height: 100dvh !important;
@@ -193,6 +201,8 @@ body.locked .invitation-body {
 
 /* Couple Names & Title Overlay */
 .couple-overlay {
+  color-scheme: light only;
+  forced-color-adjust: none;
   position: relative;
   top: -2.5rem;
   z-index: 20;
@@ -376,6 +386,8 @@ body.locked .invitation-body {
 
 /* 7. Main Invitation Body (Dual Layer Artwork) */
 .invitation-body {
+  color-scheme: light only;
+  forced-color-adjust: none;
   position: relative;
   z-index: 5;
   background-color: var(--parchment-base);
