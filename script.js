@@ -18,17 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroSection = document.getElementById('heroSection');
 
   const HERO_REVEAL_DELAY_MS = 6000; // Exactly 6 seconds of actual video playback before hero text reveal
+  const SCROLL_UNLOCK_DELAY_MS = 8000; // Exactly 8 seconds of actual video playback before scrolling unlocks
   let isStarting = false;
   let hasStarted = false;
   let hasRevealedHero = false;
+  let hasUnlockedScroll = false;
   let hasCompletedVideo = false;
 
   let accumulatedPlaybackMs = 0;
   let playbackSegmentStartTime = null;
   let heroRevealTimerId = null;
+  let scrollUnlockTimerId = null;
 
   // ---------------------------------------------------------------------------
-  // 2. Video Opening Sequence & Timed Hero Reveal
+  // 2. Video Opening Sequence, Timed Hero Reveal (6s) & Scroll Unlock (8s)
   // ---------------------------------------------------------------------------
 
   /**
@@ -43,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
       clearTimeout(heroRevealTimerId);
       heroRevealTimerId = null;
     }
-    playbackSegmentStartTime = null;
 
     if (coupleOverlay) {
       coupleOverlay.classList.add('revealed');
@@ -51,27 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /**
-   * Finalize the opening sequence when the video finishes (~10.0s):
-   * - Ensures hero text is revealed if not already
-   * - Pauses video cleanly on final frame
-   * - Sets stage background
-   * - Unlocks page scrolling
-   * - Displays scroll prompt indicator
+   * Unlock normal page scrolling and show the scroll indicator at 8.0s of actual playback.
+   * Video continues playing uninterrupted in the background.
    */
-  const onVideoComplete = () => {
-    if (hasCompletedVideo) return;
-    hasCompletedVideo = true;
+  const unlockPageScroll = () => {
+    if (hasUnlockedScroll) return;
+    hasUnlockedScroll = true;
 
-    // Safety check: ensure hero text is revealed
-    revealHeroText();
-
-    // Cleanly pause video on its final frame
-    try {
-      heroVideo.pause();
-    } catch (_) {}
-
-    // Lock stage background on heroSection
-    heroSection.style.backgroundImage = "url('assets/images/hero-end-frame.jpg')";
+    if (scrollUnlockTimerId) {
+      clearTimeout(scrollUnlockTimerId);
+      scrollUnlockTimerId = null;
+    }
 
     // Unlock page scrolling for the main invitation body
     document.body.classList.remove('locked');
@@ -83,11 +75,33 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /**
+   * Finalize the opening sequence when the video finishes (~10.0s):
+   * - Ensures hero text is revealed if not already
+   * - Ensures scrolling is unlocked if not already
+   * - Pauses video cleanly on final frame
+   * - Sets stage background
+   */
+  const onVideoComplete = () => {
+    if (hasCompletedVideo) return;
+    hasCompletedVideo = true;
+
+    // Safety checks: ensure hero text is revealed and scrolling unlocked
+    revealHeroText();
+    unlockPageScroll();
+
+    // Cleanly pause video on its final frame
+    try {
+      heroVideo.pause();
+    } catch (_) {}
+
+    // Lock stage background on heroSection
+    heroSection.style.backgroundImage = "url('assets/images/hero-end-frame.jpg')";
+  };
+
+  /**
    * Pause playback timer accumulation during video buffering, stalls, or pauses.
    */
   const pausePlaybackTimer = () => {
-    if (hasRevealedHero) return;
-
     if (playbackSegmentStartTime !== null) {
       const elapsed = performance.now() - playbackSegmentStartTime;
       accumulatedPlaybackMs += elapsed;
@@ -98,34 +112,47 @@ document.addEventListener('DOMContentLoaded', () => {
       clearTimeout(heroRevealTimerId);
       heroRevealTimerId = null;
     }
+    if (scrollUnlockTimerId) {
+      clearTimeout(scrollUnlockTimerId);
+      scrollUnlockTimerId = null;
+    }
   };
 
   /**
    * Resume playback timer accumulation when actual playback begins or resumes.
    */
   const resumePlaybackTimer = () => {
-    if (hasRevealedHero) return;
-
-    // If media timeline has already passed 6.0s, trigger immediately
-    if (heroVideo.currentTime >= 6.0 || accumulatedPlaybackMs >= HERO_REVEAL_DELAY_MS) {
+    // If media timeline has already passed milestones, trigger immediately
+    if (!hasRevealedHero && (heroVideo.currentTime >= 6.0 || accumulatedPlaybackMs >= HERO_REVEAL_DELAY_MS)) {
       revealHeroText();
-      return;
+    }
+    if (!hasUnlockedScroll && (heroVideo.currentTime >= 8.0 || accumulatedPlaybackMs >= SCROLL_UNLOCK_DELAY_MS)) {
+      unlockPageScroll();
     }
 
     if (playbackSegmentStartTime === null) {
       playbackSegmentStartTime = performance.now();
-      const remainingMs = Math.max(0, HERO_REVEAL_DELAY_MS - accumulatedPlaybackMs);
-      if (heroRevealTimerId) {
-        clearTimeout(heroRevealTimerId);
+
+      if (!hasRevealedHero) {
+        const remainingHeroMs = Math.max(0, HERO_REVEAL_DELAY_MS - accumulatedPlaybackMs);
+        if (heroRevealTimerId) clearTimeout(heroRevealTimerId);
+        heroRevealTimerId = setTimeout(() => {
+          revealHeroText();
+        }, remainingHeroMs);
       }
-      heroRevealTimerId = setTimeout(() => {
-        revealHeroText();
-      }, remainingMs);
+
+      if (!hasUnlockedScroll) {
+        const remainingScrollMs = Math.max(0, SCROLL_UNLOCK_DELAY_MS - accumulatedPlaybackMs);
+        if (scrollUnlockTimerId) clearTimeout(scrollUnlockTimerId);
+        scrollUnlockTimerId = setTimeout(() => {
+          unlockPageScroll();
+        }, remainingScrollMs);
+      }
     }
   };
 
   const showRetryOption = (message = 'Tap to retry opening') => {
-    if (hasCompletedVideo || hasRevealedHero) return;
+    if (hasCompletedVideo) return;
     isStarting = false;
     hasStarted = false;
 
@@ -143,6 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const handlePlaybackFailureRecovery = (message) => {
+    showRetryOption(message);
+    // Sensible recovery behavior: ensure user is not permanently locked out if playback fails
+    revealHeroText();
+    unlockPageScroll();
+  };
+
   const startInvitation = () => {
     if (isStarting || hasStarted || hasCompletedVideo) return;
     isStarting = true;
@@ -153,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroRevealTimerId) {
       clearTimeout(heroRevealTimerId);
       heroRevealTimerId = null;
+    }
+    if (scrollUnlockTimerId) {
+      clearTimeout(scrollUnlockTimerId);
+      scrollUnlockTimerId = null;
     }
 
     // Hide opening tap hint immediately
@@ -188,12 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
           // Playback promise resolved; 'playing' event will trigger timer
         }).catch((err) => {
           console.warn('Video play promise rejected:', err);
-          showRetryOption('Tap to retry opening');
+          handlePlaybackFailureRecovery('Tap to retry opening');
         });
       }
     } catch (err) {
       console.warn('Video play exception:', err);
-      showRetryOption('Tap to retry opening');
+      handlePlaybackFailureRecovery('Tap to retry opening');
     }
   };
 
@@ -221,17 +259,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!hasRevealedHero && heroVideo.currentTime >= 6.0) {
       revealHeroText();
     }
+    if (!hasUnlockedScroll && heroVideo.currentTime >= 8.0) {
+      unlockPageScroll();
+    }
     // Completion safeguard if browser skips or delays 'ended' event near 10s
     if (!hasCompletedVideo && heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.15) {
       onVideoComplete();
     }
   });
 
-  // Video error handling - shows retry option rather than silent reveal or black screen
+  // Video error handling - shows retry option and ensures page is not permanently locked
   heroVideo.addEventListener('error', (e) => {
     console.warn('heroVideo error event:', e);
     if (!hasCompletedVideo) {
-      showRetryOption('Tap to retry opening');
+      handlePlaybackFailureRecovery('Tap to retry opening');
     }
   });
 
@@ -559,8 +600,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------------------------------------------------------------------------
   const saveCalendarBtn = document.getElementById('saveCalendarBtn');
   if (saveCalendarBtn) {
-    const title = encodeURIComponent("Wedding & Nikah of FAAZIL ABOOBAKER & SAFA AAMINA");
-    const details = encodeURIComponent("You are warmly invited to celebrate the Wedding and Nikah ceremony of FAAZIL ABOOBAKER & SAFA AAMINA at TMA Pai Conventional Centre, Mangalore.");
+    const title = encodeURIComponent("Wedding & Nikah of SAFA AAMINA & FAAZIL ABOOBAKER");
+    const details = encodeURIComponent("You are warmly invited to celebrate the Wedding and Nikah ceremony of SAFA AAMINA & FAAZIL ABOOBAKER at TMA Pai Conventional Centre, Mangalore.");
     const location = encodeURIComponent("TMA Pai Conventional Centre, MG Road, Kodailbail, Mangaluru, Karnataka");
     // 24 December 2026 11:30 AM IST (UTC+5:30) is 20261224T060000Z
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261224T060000Z/20261224T110000Z&details=${details}&location=${location}`;
