@@ -1,748 +1,1493 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#3b4432" />
-  <meta name="color-scheme" content="light only" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="format-detection" content="telephone=no" />
-  <title>Safa Aamina &amp; Faazil Aboobaker - Wedding Invitation | Royal Grace</title>
-  <meta name="description"
-    content="You're warmly invited to celebrate the wedding and Nikah of Safa Aamina &amp; Faazil Aboobaker." />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/images/royal-grace-welcome-bg.jpg" />
-
-  <!-- Google Fonts Preconnect & Stylesheet -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" />
-
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body class="locked">
-
-  <!-- Subtle Gold Pattern Background Overlay -->
-  <div class="pattern-overlay" aria-hidden="true"></div>
-
-  <!-- Background Music Audio -->
-  <audio id="bgMusic" loop preload="auto" src="assets/audio/Slepless.mp3"></audio>
-
-  <!-- Floating Audio Mute / Unmute Button -->
-  <button id="musicToggleBtn" class="floating-music-btn" aria-label="Toggle background music" title="Toggle Music">
-    <!-- Unmuted sound wave icon -->
-    <svg id="musicIconOn" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-    </svg>
-    <!-- Muted icon -->
-    <svg id="musicIconOff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <line x1="23" y1="9" x2="17" y2="15"></line>
-      <line x1="17" y1="9" x2="23" y2="15"></line>
-    </svg>
-  </button>
-
-  <!-- =========================================================================
-       HERO SCREEN: Original Opening Video Animation & Couple Reveal
-       ========================================================================= -->
-  <section id="heroSection" class="hero-section" tabindex="0" role="button"
-    aria-label="Tap or press Enter to open invitation">
-    <!-- Main 3D Door & Floral Intro Video -->
-    <video id="heroVideo" class="hero-video" src="assets/video/demo-v3-royal-grace.mp4" poster="assets/images/hero-poster.jpg" playsinline webkit-playsinline muted preload="auto"
-      disablePictureInPicture controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"></video>
-
-    <!-- Opening Screen Tap Prompt -->
-    
-
-    <!-- Couple Identity Overlay (Revealed at 6s into opening video playback) -->
-    <div id="coupleOverlay" class="couple-overlay">
-      <!-- Heart Glyph -->
-      <div class="hero-heart-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-        </svg>
-      </div>
-
-      <!-- Introduction Message -->
-      <p class="invitation-intro">We're getting married</p>
-
-      <!-- Ornamental divider line -->
-      <div class="ornamental-divider">
-        <div class="line"></div>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-        </svg>
-        <div class="line"></div>
-      </div>
-
-      <!-- Bride Information -->
-      <h1 class="couple-name">Safa Aamina</h1>
-      <div class="person-bio">
-        D/O of MARHOOM HAJI MOHAMMED RAFIQ <br> &amp; <br> THAHIRA
-      </div>
-
-      <!-- Ampersand -->
-      <p class="couple-ampersand">&amp;</p>
-
-      <!-- Groom Information -->
-      <h1 class="couple-name">Faazil Aboobaker</h1>
-      <div class="person-bio">
-        S/O PA MOHAMMED <br> &amp; <br> SHAKILA BANU
-      </div>
-    </div>
-
-    <!-- Scroll Down Prompt Indicator -->
-    <div id="scrollIndicator" class="scroll-indicator">
-      <span class="scroll-text">Scroll</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       MAIN INVITATION BODY (Seamless Repeating Parchment Artwork)
-       ========================================================================= -->
-  <div class="invitation-body">
-
-    <!-- 1. Welcome Section -->
-    <section class="welcome-section">
-      <div class="content-container">
-        <!-- Top Ornamental Accent -->
-        <div class="welcome-divider">
-          <div class="gradient-line-left"></div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#8a7a4e">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-          </svg>
-          <div class="gradient-line-right"></div>
-        </div>
-
-        <!-- Welcome Quote -->
-        <p class="welcome-text">
-          We are honored to welcome you to the Wedding ceremony of Safa Aamina &amp; Faazil Aboobaker. As they begin
-          their journey together in faith and love, we thank you for being part of this blessed occasion.
-        </p>
-
-        <!-- Bottom Ornamental Accent -->
-        <div class="welcome-divider bottom">
-          <div class="gradient-line-left"></div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#8a7a4e">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-          </svg>
-          <div class="gradient-line-right"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. The Date Scratch to Reveal Section (3 Rectangular Scratch Cards) -->
-    <section class="invitation-section text-center date-scratch-section">
-      <!-- Wavy Decorative Divider -->
-      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
-          opacity="0.3"></path>
-        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-          stroke-width="0.5" opacity="0.2"></path>
-        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-      </svg>
-
-      <div class="content-container">
-        <h2 class="section-title date-heading">Nikah Date Reveal</h2>
-
-        <!-- Central Heart Divider -->
-        <div class="section-heart-divider">
-          <div class="h-line"></div>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-            </path>
-          </svg>
-          <div class="h-line"></div>
-        </div>
-
-        <p class="date-scratch-subtitle">✦ Scratch to reveal the date ✦</p>
-
-        <!-- 3 Circular Scratch Cards Container -->
-        <div class="date-cards-wrapper">
-          <div class="date-cards-row">
-            <!-- DAY Card -->
-            <div class="date-card-unit">
-              <div class="date-card-box" id="cardDay">
-                <div class="date-card-revealed">
-                  <span class="date-card-val date-card-day-val">24</span>
-                </div>
-                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Day"></canvas>
-              </div>
-              <span class="date-card-label">DAY</span>
-            </div>
-
-            <!-- MONTH Card -->
-            <div class="date-card-unit">
-              <div class="date-card-box" id="cardMonth">
-                <div class="date-card-revealed">
-                  <span class="date-card-val date-card-month-val">December</span>
-                </div>
-                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Month"></canvas>
-              </div>
-              <span class="date-card-label">MONTH</span>
-            </div>
-
-            <!-- YEAR Card -->
-            <div class="date-card-unit">
-              <div class="date-card-box" id="cardYear">
-                <div class="date-card-revealed">
-                  <span class="date-card-val date-card-year-val">2026</span>
-                </div>
-                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Year"></canvas>
-              </div>
-              <span class="date-card-label">YEAR</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Save the Date Button -->
-        <div class="mt-8 flex justify-center">
-          <a id="saveCalendarBtn" href="#" class="save-date-pill-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M8 2v4"></path>
-              <path d="M16 2v4"></path>
-              <path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"></path>
-              <path d="M3 10h18"></path>
-              <path d="M16 19h6"></path>
-              <path d="M19 16v6"></path>
-            </svg>
-            Save The Date
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Counting Down to Forever Section -->
-    <section class="invitation-section text-center">
-      <!-- Wavy Decorative Divider -->
-      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
-          opacity="0.3"></path>
-        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-          stroke-width="0.5" opacity="0.2"></path>
-        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-      </svg>
-
-      <div class="content-container">
-        <h2 class="section-title">Counting Down to Forever</h2>
-
-        <!-- Central Heart Divider -->
-        <div class="section-heart-divider">
-          <div class="h-line"></div>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-            </path>
-          </svg>
-          <div class="h-line"></div>
-        </div>
-
-        <!-- 4 Compact Semi-Transparent Countdown Boxes Floating Directly on Parchment -->
-        <div class="countdown-row">
-          <div class="countdown-unit">
-            <div class="countdown-digit-box">
-              <span id="countDays" class="digit-num">00</span>
-            </div>
-            <p class="digit-label">Days</p>
-          </div>
-
-          <div class="countdown-unit">
-            <div class="countdown-digit-box">
-              <span id="countHours" class="digit-num">00</span>
-            </div>
-            <p class="digit-label">Hours</p>
-          </div>
-
-          <div class="countdown-unit">
-            <div class="countdown-digit-box">
-              <span id="countMinutes" class="digit-num">00</span>
-            </div>
-            <p class="digit-label">Minutes</p>
-          </div>
-
-          <div class="countdown-unit">
-            <div class="countdown-digit-box">
-              <span id="countSeconds" class="digit-num">00</span>
-            </div>
-            <p class="digit-label">Seconds</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Program Timeline Section -->
-    <section class="invitation-section">
-      <!-- Wavy Decorative Divider -->
-      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
-          opacity="0.3"></path>
-        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-          stroke-width="0.5" opacity="0.2"></path>
-        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-      </svg>
-
-      <div class="content-container">
-        <!-- Clock Icon -->
-        <div class="section-icon-wrap">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
-
-        <h2 class="section-title text-center">Program Timeline</h2>
-
-        <!-- Central Heart Divider -->
-        <div class="section-heart-divider">
-          <div class="h-line"></div>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-            </path>
-          </svg>
-          <div class="h-line"></div>
-        </div>
-
-        <!-- Vertical Timeline List (Floating on Parchment) -->
-        <div class="timeline-list">
-          <!-- Wedding & Nikah Day Header -->
-          <div class="timeline-day-block">
-            <div class="timeline-date-bar">
-              <div class="timeline-rule"></div>
-              <div class="timeline-date-container">
-                <p class="timeline-date-title">Thursday, 24 December 2026</p>
-                <p class="timeline-hijri-date">14 Rajab 1448 AH</p>
-              </div>
-              <div class="timeline-rule"></div>
-            </div>
-
-            <!-- Nikah Ceremony Event -->
-            <div class="timeline-event-row">
-              <span class="timeline-time">11:30 AM</span>
-              <div class="timeline-event-body">
-                <p class="timeline-event-title">Nikah &amp; Wedding Ceremony</p>
-                <p class="timeline-event-desc">TMA Pai Conventional Centre, Mangalore</p>
-              </div>
-            </div>
-
-            <!-- Lunch Event -->
-            <div class="timeline-event-row">
-              <span class="timeline-time">Followed by</span>
-              <div class="timeline-event-body">
-                <p class="timeline-event-title">Lunch</p>
-                <p class="timeline-event-desc">Lunch will be served after the Nikah ceremony.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Venue & Map Section -->
-    <section class="invitation-section text-center">
-      <!-- Wavy Decorative Divider -->
-      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
-          opacity="0.3"></path>
-        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-          stroke-width="0.5" opacity="0.2"></path>
-        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-      </svg>
-
-      <div class="content-container">
-        <!-- Map Pin Icon -->
-        <div class="section-icon-wrap">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </div>
-
-        <h2 class="section-title">Venue</h2>
-
-        <!-- Central Heart Divider -->
-        <div class="section-heart-divider">
-          <div class="h-line"></div>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-            </path>
-          </svg>
-          <div class="h-line"></div>
-        </div>
-
-        <p class="venue-title">TMA Pai Conventional Centre, Mangalore</p>
-        <p class="venue-sub">MG Road, Kodailbail, Mangaluru, Karnataka</p>
-
-        <!-- Google Map Container -->
-        <div class="venue-map-wrap">
-          <iframe
-            src="https://maps.google.com/maps?q=TMA%20Pai%20Convention%20Centre%2C%20MG%20Road%2C%20Kodailbail%2C%20Mangaluru%2C%20Karnataka&t=m&z=15&output=embed"
-            title="Venue Map - TMA Pai Conventional Centre" loading="lazy" allowfullscreen></iframe>
-        </div>
-
-        <div class="mt-6 flex justify-center">
-          <a href="https://maps.app.goo.gl/QZp7WFz7DHqoYctV8" target="_blank" rel="noopener noreferrer"
-            class="save-date-pill-btn">
-            View on Google Maps
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. Pre-Wedding Events Section -->
-    <section class="invitation-section text-center date-scratch-section mehendi-scratch-section">
-      <!-- Wavy Decorative Divider -->
-      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
-          opacity="0.3"></path>
-        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-          stroke-width="0.5" opacity="0.2"></path>
-        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-      </svg>
-
-      <div class="content-container">
-        <!-- Confetti Icon -->
-        <div class="section-icon-wrap">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="m4 11 7 7-7-7Z"></path>
-            <path d="m15 4 5 5-5-5Z"></path>
-            <path d="M11 20 2 11l9-9 9 9-9 9Z"></path>
-          </svg>
-        </div>
-
-        <h2 class="section-title text-center">Mehendi Date Reveal</h2>
-
-        <!-- Central Heart Divider -->
-        <div class="section-heart-divider">
-          <div class="h-line"></div>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-            </path>
-          </svg>
-          <div class="h-line"></div>
-        </div>
-
-        <p class="date-scratch-subtitle">✦ Scratch to reveal the Mehendi date ✦</p>
-
-        <!-- 3 Circular Scratch Cards for Mehendi (DAY: 21, MONTH: December, YEAR: 2026) -->
-        <div class="date-cards-wrapper">
-          <div class="date-cards-row">
-            <!-- DAY Card -->
-            <div class="date-card-unit">
-              <div class="date-card-box" id="mehendiCardDay">
-                <div class="date-card-revealed">
-                  <span class="date-card-val date-card-day-val">21</span>
-                </div>
-                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Mehendi Day"></canvas>
-              </div>
-              <span class="date-card-label">DAY</span>
-            </div>
-
-            <!-- MONTH Card -->
-            <div class="date-card-unit">
-              <div class="date-card-box" id="mehendiCardMonth">
-                <div class="date-card-revealed">
-                  <span class="date-card-val date-card-month-val">December</span>
-                </div>
-                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Mehendi Month"></canvas>
-              </div>
-              <span class="date-card-label">MONTH</span>
-            </div>
-
-            <!-- YEAR Card -->
-            <div class="date-card-unit">
-              <div class="date-card-box" id="mehendiCardYear">
-                <div class="date-card-revealed">
-                  <span class="date-card-val date-card-year-val">2026</span>
-                </div>
-                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Mehendi Year"></canvas>
-              </div>
-              <span class="date-card-label">YEAR</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-list" style="margin-top: 2rem;">
-          <div class="timeline-day-block">
-            <div class="timeline-date-bar">
-              <div class="timeline-rule"></div>
-              <p class="timeline-date-title"></p>
-              <div class="timeline-rule"></div>
-            </div>
-            <div class="timeline-event-row">
-              <span class="venue-title">11:30 AM</span>
-              <div class="timeline-event-body">
-                <p class="venue-title">Mehendi</p>
-                <!---p class="venue-title mehendi-venue-title">Basel Missionaries Memorial Auditorium, Udupi</p-->
-              </div>
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+
+  <meta name="theme-color" content="#3b4432" />
+
+  <meta name="color-scheme" content="light only" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="format-detection" content="telephone=no" />
+
+  <title>Safa Aamina &amp; Faazil Aboobaker - Wedding Invitation | Royal Grace</title>
+
+  <meta name="description"
+
+    content="You're warmly invited to celebrate the wedding and Nikah of Safa Aamina &amp; Faazil Aboobaker." />
+
+
+
+  <!-- Favicon -->
+
+  <link rel="icon" type="image/png" href="assets/images/royal-grace-welcome-bg.jpg" />
+
+
+
+  <!-- Google Fonts Preconnect & Stylesheet -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet"
+
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" />
+
+
+
+  <!-- Custom Stylesheet -->
+
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+
+
+<body class="locked">
+
+
+
+  <!-- Subtle Gold Pattern Background Overlay -->
+
+  <div class="pattern-overlay" aria-hidden="true"></div>
+
+
+
+  <!-- Background Music Audio -->
+
+  <audio id="bgMusic" loop preload="auto" src="assets/audio/Slepless.mp3"></audio>
+
+
+
+  <!-- Floating Audio Mute / Unmute Button -->
+
+  <button id="musicToggleBtn" class="floating-music-btn" aria-label="Toggle background music" title="Toggle Music">
+
+    <!-- Unmuted sound wave icon -->
+
+    <svg id="musicIconOn" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+      stroke-linecap="round" stroke-linejoin="round">
+
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+
+    </svg>
+
+    <!-- Muted icon -->
+
+    <svg id="musicIconOff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+      stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+
+    </svg>
+
+  </button>
+
+
+
+  <!-- =========================================================================
+
+       HERO SCREEN: Original Opening Video Animation & Couple Reveal
+
+       ========================================================================= -->
+
+  <section id="heroSection" class="hero-section" tabindex="0" role="button"
+
+    aria-label="Tap or press Enter to open invitation">
+
+    <!-- Main 3D Door & Floral Intro Video -->
+
+    <video id="heroVideo" class="hero-video" src="assets/video/demo-v3-royal-grace.mp4" poster="assets/images/hero-poster.jpg" playsinline webkit-playsinline muted preload="auto"
+
+      disablePictureInPicture controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"></video>
+
+
+
+    <!-- Opening Screen Tap Prompt -->
+
+    
+
+
+
+    <!-- Couple Identity Overlay (Revealed at 6s into opening video playback) -->
+
+    <div id="coupleOverlay" class="couple-overlay">
+
+      <!-- Heart Glyph -->
+
+      <div class="hero-heart-icon">
+
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+
+          <path
+
+            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+
+        </svg>
+
+      </div>
+
+
+
+      <!-- Introduction Message -->
+
+      <p class="invitation-intro">We're getting married</p>
+
+
+
+      <!-- Ornamental divider line -->
+
+      <div class="ornamental-divider">
+
+        <div class="line"></div>
+
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+          <path
+
+            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+
+        </svg>
+
+        <div class="line"></div>
+
+      </div>
+
+
+
+      <!-- Bride Information -->
+
+      <h1 class="couple-name">Safa Aamina</h1>
+
+      <div class="person-bio">
+
+        D/O of MARHOOM HAJI MOHAMMED RAFIQ <br> &amp; <br> THAHIRA
+
+      </div>
+
+
+
+      <!-- Ampersand -->
+
+      <p class="couple-ampersand">&amp;</p>
+
+
+
+      <!-- Groom Information -->
+
+      <h1 class="couple-name">Faazil Aboobaker</h1>
+
+      <div class="person-bio">
+
+        S/O PA MOHAMMED <br> &amp; <br> SHAKILA BANU
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Scroll Down Prompt Indicator -->
+
+    <div id="scrollIndicator" class="scroll-indicator">
+
+      <span class="scroll-text">Scroll</span>
+
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+        stroke-linecap="round" stroke-linejoin="round">
+
+        <polyline points="6 9 12 15 18 9"></polyline>
+
+      </svg>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================================
+
+       MAIN INVITATION BODY (Seamless Repeating Parchment Artwork)
+
+       ========================================================================= -->
+
+  <div class="invitation-body">
+
+
+
+    <!-- 1. Welcome Section -->
+
+    <section class="welcome-section">
+
+      <div class="content-container">
+
+        <!-- Top Ornamental Accent -->
+
+        <div class="welcome-divider">
+
+          <div class="gradient-line-left"></div>
+
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#8a7a4e">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+
+          </svg>
+
+          <div class="gradient-line-right"></div>
+
+        </div>
+
+
+
+        <!-- Welcome Quote -->
+
+        <p class="welcome-text">
+
+          We are honored to welcome you to the Wedding ceremony of Safa Aamina &amp; Faazil Aboobaker. As they begin
+
+          their journey together in faith and love, we thank you for being part of this blessed occasion.
+
+        </p>
+
+
+
+        <!-- Bottom Ornamental Accent -->
+
+        <div class="welcome-divider bottom">
+
+          <div class="gradient-line-left"></div>
+
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#8a7a4e">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+
+          </svg>
+
+          <div class="gradient-line-right"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 2. The Date Scratch to Reveal Section (3 Rectangular Scratch Cards) -->
+
+    <section class="invitation-section text-center date-scratch-section">
+
+      <!-- Wavy Decorative Divider -->
+
+      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
+
+          opacity="0.3"></path>
+
+        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+          stroke-width="0.5" opacity="0.2"></path>
+
+        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+      </svg>
+
+
+
+      <div class="content-container">
+
+        <h2 class="section-title date-heading">Nikah Date Reveal</h2>
+
+
+
+        <!-- Central Heart Divider -->
+
+        <div class="section-heart-divider">
+
+          <div class="h-line"></div>
+
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+            </path>
+
+          </svg>
+
+          <div class="h-line"></div>
+
+        </div>
+
+
+
+        <p class="date-scratch-subtitle">✦ Scratch to reveal the date ✦</p>
+
+
+
+        <!-- 3 Circular Scratch Cards Container -->
+
+        <div class="date-cards-wrapper">
+
+          <div class="date-cards-row">
+
+            <!-- DAY Card -->
+
+            <div class="date-card-unit">
+
+              <div class="date-card-box" id="cardDay">
+
+                <div class="date-card-revealed">
+
+                  <span class="date-card-val date-card-day-val">24</span>
+
+                </div>
+
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Day"></canvas>
+
+              </div>
+
+              <span class="date-card-label">DAY</span>
+
             </div>
-                  <div class="content-container">
-        <!-- Map Pin Icon -->
-        <div class="section-icon-wrap">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </div>
-
-        <h2 class="section-title">Venue</h2>
-
-        <!-- Central Heart Divider -->
-        <div class="section-heart-divider">
-          <div class="h-line"></div>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-            </path>
-          </svg>
-          <div class="h-line"></div>
-        </div>
-            <p class="venue-title">Basel Missionaries Memorial Auditorium</p>
+
+
+
+            <!-- MONTH Card -->
+
+            <div class="date-card-unit">
+
+              <div class="date-card-box" id="cardMonth">
+
+                <div class="date-card-revealed">
+
+                  <span class="date-card-val date-card-month-val">December</span>
+
+                </div>
+
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Month"></canvas>
+
+              </div>
+
+              <span class="date-card-label">MONTH</span>
+
+            </div>
+
+
+
+            <!-- YEAR Card -->
+
+            <div class="date-card-unit">
+
+              <div class="date-card-box" id="cardYear">
+
+                <div class="date-card-revealed">
+
+                  <span class="date-card-val date-card-year-val">2026</span>
+
+                </div>
+
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Year"></canvas>
+
+              </div>
+
+              <span class="date-card-label">YEAR</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Save the Date Button -->
+
+        <div class="mt-8 flex justify-center">
+
+          <a id="saveCalendarBtn" href="#" class="save-date-pill-btn">
+
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+              stroke-linecap="round" stroke-linejoin="round">
+
+              <path d="M8 2v4"></path>
+
+              <path d="M16 2v4"></path>
+
+              <path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"></path>
+
+              <path d="M3 10h18"></path>
+
+              <path d="M16 19h6"></path>
+
+              <path d="M19 16v6"></path>
+
+            </svg>
+
+            Save The Date
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 3. Counting Down to Forever Section -->
+
+    <section class="invitation-section text-center">
+
+      <!-- Wavy Decorative Divider -->
+
+      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
+
+          opacity="0.3"></path>
+
+        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+          stroke-width="0.5" opacity="0.2"></path>
+
+        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+      </svg>
+
+
+
+      <div class="content-container">
+
+        <h2 class="section-title">Counting Down to Forever</h2>
+
+
+
+        <!-- Central Heart Divider -->
+
+        <div class="section-heart-divider">
+
+          <div class="h-line"></div>
+
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+            </path>
+
+          </svg>
+
+          <div class="h-line"></div>
+
+        </div>
+
+
+
+        <!-- 4 Compact Semi-Transparent Countdown Boxes Floating Directly on Parchment -->
+
+        <div class="countdown-row">
+
+          <div class="countdown-unit">
+
+            <div class="countdown-digit-box">
+
+              <span id="countDays" class="digit-num">00</span>
+
+            </div>
+
+            <p class="digit-label">Days</p>
+
+          </div>
+
+
+
+          <div class="countdown-unit">
+
+            <div class="countdown-digit-box">
+
+              <span id="countHours" class="digit-num">00</span>
+
+            </div>
+
+            <p class="digit-label">Hours</p>
+
+          </div>
+
+
+
+          <div class="countdown-unit">
+
+            <div class="countdown-digit-box">
+
+              <span id="countMinutes" class="digit-num">00</span>
+
+            </div>
+
+            <p class="digit-label">Minutes</p>
+
+          </div>
+
+
+
+          <div class="countdown-unit">
+
+            <div class="countdown-digit-box">
+
+              <span id="countSeconds" class="digit-num">00</span>
+
+            </div>
+
+            <p class="digit-label">Seconds</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 4. Program Timeline Section -->
+
+    <section class="invitation-section">
+
+      <!-- Wavy Decorative Divider -->
+
+      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
+
+          opacity="0.3"></path>
+
+        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+          stroke-width="0.5" opacity="0.2"></path>
+
+        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+      </svg>
+
+
+
+      <div class="content-container">
+
+        <!-- Clock Icon -->
+
+        <div class="section-icon-wrap">
+
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+            stroke-linecap="round" stroke-linejoin="round">
+
+            <circle cx="12" cy="12" r="10"></circle>
+
+            <polyline points="12 6 12 12 16 14"></polyline>
+
+          </svg>
+
+        </div>
+
+
+
+        <h2 class="section-title text-center">Program Timeline</h2>
+
+
+
+        <!-- Central Heart Divider -->
+
+        <div class="section-heart-divider">
+
+          <div class="h-line"></div>
+
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+            </path>
+
+          </svg>
+
+          <div class="h-line"></div>
+
+        </div>
+
+
+
+        <!-- Vertical Timeline List (Floating on Parchment) -->
+
+        <div class="timeline-list">
+
+          <!-- Wedding & Nikah Day Header -->
+
+          <div class="timeline-day-block">
+
+            <div class="timeline-date-bar">
+
+              <div class="timeline-rule"></div>
+
+              <div class="timeline-date-container">
+
+                <p class="timeline-date-title">Thursday, 24 December 2026</p>
+
+                <p class="timeline-hijri-date">15 Rajab 1448 AH</p>
+
+              </div>
+
+              <div class="timeline-rule"></div>
+
+            </div>
+
+
+
+            <!-- Nikah Ceremony Event -->
+
+            <div class="timeline-event-row">
+
+              <span class="timeline-time">11:30 AM</span>
+
+              <div class="timeline-event-body">
+
+                <p class="timeline-event-title">Nikah &amp; Wedding Ceremony</p>
+
+                <p class="timeline-event-desc">TMA Pai Conventional Centre, Mangalore</p>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Lunch Event -->
+
+            <div class="timeline-event-row">
+
+              <span class="timeline-time">Followed by</span>
+
+              <div class="timeline-event-body">
+
+                <p class="timeline-event-title">Lunch</p>
+
+                <p class="timeline-event-desc">Lunch will be served after the Nikah ceremony.</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 5. Venue & Map Section -->
+
+    <section class="invitation-section text-center">
+
+      <!-- Wavy Decorative Divider -->
+
+      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
+
+          opacity="0.3"></path>
+
+        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+          stroke-width="0.5" opacity="0.2"></path>
+
+        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+      </svg>
+
+
+
+      <div class="content-container">
+
+        <!-- Map Pin Icon -->
+
+        <div class="section-icon-wrap">
+
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+            stroke-linecap="round" stroke-linejoin="round">
+
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+
+            <circle cx="12" cy="10" r="3"></circle>
+
+          </svg>
+
+        </div>
+
+
+
+        <h2 class="section-title">Venue</h2>
+
+
+
+        <!-- Central Heart Divider -->
+
+        <div class="section-heart-divider">
+
+          <div class="h-line"></div>
+
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+            </path>
+
+          </svg>
+
+          <div class="h-line"></div>
+
+        </div>
+
+
+
+        <p class="venue-title">TMA Pai Conventional Centre, Mangalore</p>
+
+        <p class="venue-sub">MG Road, Kodailbail, Mangaluru, Karnataka</p>
+
+
+
+        <!-- Google Map Container -->
+
+        <div class="venue-map-wrap">
+
+          <iframe
+
+            src="https://maps.google.com/maps?q=TMA%20Pai%20Convention%20Centre%2C%20MG%20Road%2C%20Kodailbail%2C%20Mangaluru%2C%20Karnataka&t=m&z=15&output=embed"
+
+            title="Venue Map - TMA Pai Conventional Centre" loading="lazy" allowfullscreen></iframe>
+
+        </div>
+
+
+
+        <div class="mt-6 flex justify-center">
+
+          <a href="https://maps.app.goo.gl/QZp7WFz7DHqoYctV8" target="_blank" rel="noopener noreferrer"
+
+            class="save-date-pill-btn">
+
+            View on Google Maps
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 7. Pre-Wedding Events Section -->
+
+    <section class="invitation-section text-center date-scratch-section mehendi-scratch-section">
+
+      <!-- Wavy Decorative Divider -->
+
+      <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor" stroke-width="1"
+
+          opacity="0.3"></path>
+
+        <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+          stroke-width="0.5" opacity="0.2"></path>
+
+        <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+      </svg>
+
+
+
+      <div class="content-container">
+
+        <!-- Confetti Icon -->
+
+        <div class="section-icon-wrap">
+
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+            stroke-linecap="round" stroke-linejoin="round">
+
+            <path d="m4 11 7 7-7-7Z"></path>
+
+            <path d="m15 4 5 5-5-5Z"></path>
+
+            <path d="M11 20 2 11l9-9 9 9-9 9Z"></path>
+
+          </svg>
+
+        </div>
+
+
+
+        <h2 class="section-title text-center">Mehendi Date Reveal</h2>
+
+
+
+        <!-- Central Heart Divider -->
+
+        <div class="section-heart-divider">
+
+          <div class="h-line"></div>
+
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+            </path>
+
+          </svg>
+
+          <div class="h-line"></div>
+
+        </div>
+
+
+
+        <p class="date-scratch-subtitle">✦ Scratch to reveal the Mehendi date ✦</p>
+
+
+
+        <!-- 3 Circular Scratch Cards for Mehendi (DAY: 21, MONTH: December, YEAR: 2026) -->
+
+        <div class="date-cards-wrapper">
+
+          <div class="date-cards-row">
+
+            <!-- DAY Card -->
+
+            <div class="date-card-unit">
+
+              <div class="date-card-box" id="mehendiCardDay">
+
+                <div class="date-card-revealed">
+
+                  <span class="date-card-val date-card-day-val">21</span>
+
+                </div>
+
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Mehendi Day"></canvas>
+
+              </div>
+
+              <span class="date-card-label">DAY</span>
+
+            </div>
+
+
+
+            <!-- MONTH Card -->
+
+            <div class="date-card-unit">
+
+              <div class="date-card-box" id="mehendiCardMonth">
+
+                <div class="date-card-revealed">
+
+                  <span class="date-card-val date-card-month-val">December</span>
+
+                </div>
+
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Mehendi Month"></canvas>
+
+              </div>
+
+              <span class="date-card-label">MONTH</span>
+
+            </div>
+
+
+
+            <!-- YEAR Card -->
+
+            <div class="date-card-unit">
+
+              <div class="date-card-box" id="mehendiCardYear">
+
+                <div class="date-card-revealed">
+
+                  <span class="date-card-val date-card-year-val">2026</span>
+
+                </div>
+
+                <canvas class="date-card-canvas" width="280" height="280" aria-label="Scratch to reveal Mehendi Year"></canvas>
+
+              </div>
+
+              <span class="date-card-label">YEAR</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="timeline-list" style="margin-top: 2rem;">
+
+          <div class="timeline-day-block">
+
+            <div class="timeline-date-bar">
+
+              <div class="timeline-rule"></div>
+
+              <p class="timeline-date-title"></p>
+
+              <div class="timeline-rule"></div>
+
+            </div>
+
+            <div class="timeline-event-row">
+
+              <span class="venue-title">11:30 AM</span>
+
+              <div class="timeline-event-body">
+
+                <p class="venue-title">Mehendi</p>
+
+                <!---p class="venue-title mehendi-venue-title">Basel Missionaries Memorial Auditorium, Udupi</p-->
+
+              </div>
+
+            </div>
+                  <div class="content-container">
+
+        <!-- Map Pin Icon -->
+
+        <div class="section-icon-wrap">
+
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+            stroke-linecap="round" stroke-linejoin="round">
+
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+
+            <circle cx="12" cy="10" r="3"></circle>
+
+          </svg>
+
+        </div>
+
+
+
+        <h2 class="section-title">Venue</h2>
+
+
+
+        <!-- Central Heart Divider -->
+
+        <div class="section-heart-divider">
+
+          <div class="h-line"></div>
+
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+            <path
+
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+            </path>
+
+          </svg>
+
+          <div class="h-line"></div>
+
+        </div>
+
+            <p class="venue-title">Basel Missionaries Memorial Auditorium</p>
+
             <p class="venue-sub">Chitpady, Udupi, Karnataka</p>
- 
-            <!-- Google Map Container -->
-            <div class="venue-map-wrap timeline-event-map">
-              <iframe
-                src="https://maps.google.com/maps?q=Basel%20Missionaries%20Memorial%20Auditorium%2C%20Udupi&amp;t=m&amp;z=15&amp;output=embed"
-                title="Venue Map - Basel Missionaries Memorial Auditorium, Udupi" loading="lazy"
-                allowfullscreen></iframe>
-            </div>
-
-            <div class="mt-4 flex justify-center">
-              <a href="https://maps.app.goo.gl/qRV5L2fk1X8Cunjb7" target="_blank" rel="noopener noreferrer"
-                class="save-date-pill-btn">
-                View on Google Maps
-              </a>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 11 & 12. RSVP & Closing Section (Over End Artwork Background) -->
-    <div class="closing-container">
-      <section class="invitation-section">
-        <!-- Wavy Decorative Divider -->
-        <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor"
-            stroke-width="1" opacity="0.3"></path>
-          <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-            stroke-width="0.5" opacity="0.2"></path>
-          <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-        </svg>
-
-        <div class="content-container">
-          <!-- Mail Icon -->
-          <div class="section-icon-wrap">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-            </svg>
-          </div>
-
-          <h2 class="section-title text-center">RSVP</h2>
-
-          <!-- Central Heart Divider -->
-          <div class="section-heart-divider">
-            <div class="h-line"></div>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-              </path>
-            </svg>
-            <div class="h-line"></div>
-          </div>
-
-          <!-- RSVP Form floating directly on Parchment without white card -->
-          <form id="rsvpForm" class="direct-rsvp-form">
-            <div class="form-group">
-              <label for="guestName" class="direct-form-label">Guest Name <span style="color: #c53030;">*</span></label>
-              <input type="text" id="guestName" class="direct-form-input" required placeholder="Your full name"
-                autocomplete="name" />
-            </div>
-
-            <div class="form-group">
-              <label for="attendanceSelect" class="direct-form-label flex items-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-                Will you be attending? <span style="color: #c53030;">*</span>
-              </label>
-              <select id="attendanceSelect" class="direct-form-select" required>
-                <option value="" disabled selected>Select an option...</option>
-                <option value="accept">Accepts with pleasure</option>
-                <option value="decline">Declines with regret</option>
-              </select>
-            </div>
-
-            <div class="form-group" id="guestCountGroup">
-              <label for="guestCount" class="direct-form-label flex items-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-                Number of Guests <span style="color: #c53030;">*</span>
-              </label>
-              <select id="guestCount" class="direct-form-select">
-                <option value="1" selected>1 Guest</option>
-                <option value="2">2 Guests</option>
-                <option value="3">3 Guests</option>
-                <option value="4">4 Guests</option>
-                <option value="5">5 Guests and more</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="guestMessage" class="direct-form-label">Message</label>
-              <textarea id="guestMessage" rows="3" class="direct-form-textarea"
-                placeholder="Write your wishes or notes..."></textarea>
-            </div>
-
-            <button type="submit" id="rsvpSubmitBtn" class="direct-submit-btn">Submit RSVP</button>
-          </form>
-
-          <!-- In-place Confirmation Card (Hidden by default) -->
-          <div id="rsvpConfirmation" class="rsvp-confirmation-card" style="display: none;" role="status"
-            aria-live="polite">
-            <div class="rsvp-confirm-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <h3 id="rsvpConfirmHeading" class="rsvp-confirm-title">Thank you!</h3>
-            <p id="rsvpConfirmMessage" class="rsvp-confirm-text"></p>
-            <div id="rsvpConfirmDetails" class="rsvp-confirm-badge"></div>
-
-            <button type="button" id="rsvpEditBtn" class="rsvp-edit-btn">Edit Response</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Concluding Signoff directly on End Artwork -->
-      <div class="closing-signoff">
-        <!-- Top Wavy Decorative Divider -->
-        <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg"
-          style="margin-bottom: 1.75rem;">
-          <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor"
-            stroke-width="1" opacity="0.3"></path>
-          <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-            stroke-width="0.5" opacity="0.2"></path>
-          <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-        </svg>
-
-        <div class="closing-tagline">We can't wait to celebrate with you!</div>
-        <div class="closing-couple-names">Safa Aamina<br> &amp; <br>Faazil Aboobaker</div>
-
-        <!-- Bottom Inverted Wavy Decorative Divider -->
-        <svg viewBox="0 0 400 40" class="wavy-divider rotated" fill="none" xmlns="http://www.w3.org/2000/svg"
-          style="margin-top: 1.75rem; margin-bottom: 2rem; transform: rotate(180deg);">
-          <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor"
-            stroke-width="1" opacity="0.3"></path>
-          <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
-            stroke-width="0.5" opacity="0.2"></path>
-          <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
-          <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
-        </svg>
-      </div>
-
-      <!-- Natural Seamless Footer at very end of invitation -->
-      <footer class="invitation-footer">
-        <div class="footer-names">Safa Aamina &amp; Faazil Aboobaker</div>
-        <div class="instagram-credit">
-          <p class="credit-lead">Made with love for couples</p>
-          <p class="credit-author">by <a href="https://www.instagram.com/shazneen_fathimaaaa/" target="_blank"
-              rel="noopener noreferrer" class="instagram-link">@shazneen_fathimaaaa</a></p>
-        </div>
-      </footer>
-    </div>
-
-  </div>
-
-  <!-- JavaScript Interaction Logic -->
-  <script src="script.js"></script>
-</body>
-
+ 
+
+            <!-- Google Map Container -->
+
+            <div class="venue-map-wrap timeline-event-map">
+
+              <iframe
+
+                src="https://maps.google.com/maps?q=Basel%20Missionaries%20Memorial%20Auditorium%2C%20Udupi&amp;t=m&amp;z=15&amp;output=embed"
+
+                title="Venue Map - Basel Missionaries Memorial Auditorium, Udupi" loading="lazy"
+
+                allowfullscreen></iframe>
+
+            </div>
+
+
+
+            <div class="mt-4 flex justify-center">
+
+              <a href="https://maps.app.goo.gl/qRV5L2fk1X8Cunjb7" target="_blank" rel="noopener noreferrer"
+
+                class="save-date-pill-btn">
+
+                View on Google Maps
+
+              </a>
+
+            </div>
+
+          </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 11 & 12. RSVP & Closing Section (Over End Artwork Background) -->
+
+    <div class="closing-container">
+
+      <section class="invitation-section">
+
+        <!-- Wavy Decorative Divider -->
+
+        <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+          <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor"
+
+            stroke-width="1" opacity="0.3"></path>
+
+          <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+            stroke-width="0.5" opacity="0.2"></path>
+
+          <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        </svg>
+
+
+
+        <div class="content-container">
+
+          <!-- Mail Icon -->
+
+          <div class="section-icon-wrap">
+
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+              stroke-linecap="round" stroke-linejoin="round">
+
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+
+            </svg>
+
+          </div>
+
+
+
+          <h2 class="section-title text-center">RSVP</h2>
+
+
+
+          <!-- Central Heart Divider -->
+
+          <div class="section-heart-divider">
+
+            <div class="h-line"></div>
+
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+
+              <path
+
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+
+              </path>
+
+            </svg>
+
+            <div class="h-line"></div>
+
+          </div>
+
+
+
+          <!-- RSVP Form floating directly on Parchment without white card -->
+
+          <form id="rsvpForm" class="direct-rsvp-form">
+
+            <div class="form-group">
+
+              <label for="guestName" class="direct-form-label">Guest Name <span style="color: #c53030;">*</span></label>
+
+              <input type="text" id="guestName" class="direct-form-input" required placeholder="Your full name"
+
+                autocomplete="name" />
+
+            </div>
+
+
+
+            <div class="form-group">
+
+              <label for="attendanceSelect" class="direct-form-label flex items-center gap-2">
+
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+                  stroke-linecap="round" stroke-linejoin="round">
+
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+
+                  <circle cx="9" cy="7" r="4"></circle>
+
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+
+                </svg>
+
+                Will you be attending? <span style="color: #c53030;">*</span>
+
+              </label>
+
+              <select id="attendanceSelect" class="direct-form-select" required>
+
+                <option value="" disabled selected>Select an option...</option>
+
+                <option value="accept">Accepts with pleasure</option>
+
+                <option value="decline">Declines with regret</option>
+
+              </select>
+
+            </div>
+
+
+
+            <div class="form-group" id="guestCountGroup">
+
+              <label for="guestCount" class="direct-form-label flex items-center gap-2">
+
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+                  stroke-linecap="round" stroke-linejoin="round">
+
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+
+                  <circle cx="9" cy="7" r="4"></circle>
+
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+
+                </svg>
+
+                Number of Guests <span style="color: #c53030;">*</span>
+
+              </label>
+
+              <select id="guestCount" class="direct-form-select">
+
+                <option value="1" selected>1 Guest</option>
+
+                <option value="2">2 Guests</option>
+
+                <option value="3">3 Guests</option>
+
+                <option value="4">4 Guests</option>
+
+                <option value="5">5 Guests and more</option>
+
+              </select>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+              <label for="guestMessage" class="direct-form-label">Message</label>
+
+              <textarea id="guestMessage" rows="3" class="direct-form-textarea"
+
+                placeholder="Write your wishes or notes..."></textarea>
+
+            </div>
+
+
+
+            <button type="submit" id="rsvpSubmitBtn" class="direct-submit-btn">Submit RSVP</button>
+
+          </form>
+
+
+
+          <!-- In-place Confirmation Card (Hidden by default) -->
+
+          <div id="rsvpConfirmation" class="rsvp-confirmation-card" style="display: none;" role="status"
+
+            aria-live="polite">
+
+            <div class="rsvp-confirm-icon">
+
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+                stroke-linecap="round" stroke-linejoin="round">
+
+                <polyline points="20 6 9 17 4 12"></polyline>
+
+              </svg>
+
+            </div>
+
+            <h3 id="rsvpConfirmHeading" class="rsvp-confirm-title">Thank you!</h3>
+
+            <p id="rsvpConfirmMessage" class="rsvp-confirm-text"></p>
+
+            <div id="rsvpConfirmDetails" class="rsvp-confirm-badge"></div>
+
+
+
+            <button type="button" id="rsvpEditBtn" class="rsvp-edit-btn">Edit Response</button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Concluding Signoff directly on End Artwork -->
+
+      <div class="closing-signoff">
+
+        <!-- Top Wavy Decorative Divider -->
+
+        <svg viewBox="0 0 400 40" class="wavy-divider" fill="none" xmlns="http://www.w3.org/2000/svg"
+
+          style="margin-bottom: 1.75rem;">
+
+          <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor"
+
+            stroke-width="1" opacity="0.3"></path>
+
+          <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+            stroke-width="0.5" opacity="0.2"></path>
+
+          <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        </svg>
+
+
+
+        <div class="closing-tagline">We can't wait to celebrate with you!</div>
+
+        <div class="closing-couple-names">Safa Aamina<br> &amp; <br>Faazil Aboobaker</div>
+
+
+
+        <!-- Bottom Inverted Wavy Decorative Divider -->
+
+        <svg viewBox="0 0 400 40" class="wavy-divider rotated" fill="none" xmlns="http://www.w3.org/2000/svg"
+
+          style="margin-top: 1.75rem; margin-bottom: 2rem; transform: rotate(180deg);">
+
+          <path d="M0 20 Q50 5 100 20 Q150 35 200 20 Q250 5 300 20 Q350 35 400 20" stroke="currentColor"
+
+            stroke-width="1" opacity="0.3"></path>
+
+          <path d="M0 20 Q50 10 100 20 Q150 30 200 20 Q250 10 300 20 Q350 30 400 20" stroke="currentColor"
+
+            stroke-width="0.5" opacity="0.2"></path>
+
+          <circle cx="50" cy="27.98" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="100" cy="21.13" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="150" cy="12.18" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="200" cy="17.76" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="250" cy="27.50" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="300" cy="23.30" r="2" fill="currentColor" opacity="0.25"></circle>
+
+          <circle cx="350" cy="12.96" r="2" fill="currentColor" opacity="0.25"></circle>
+
+        </svg>
+
+      </div>
+
+
+
+      <!-- Natural Seamless Footer at very end of invitation -->
+
+      <footer class="invitation-footer">
+
+        <div class="footer-names">Safa Aamina &amp; Faazil Aboobaker</div>
+
+        <div class="instagram-credit">
+
+          <p class="credit-lead">Made with love for couples</p>
+
+          <p class="credit-author">by <a href="https://www.instagram.com/shazneen_fathimaaaa/" target="_blank"
+
+              rel="noopener noreferrer" class="instagram-link">@shazneen_fathimaaaa</a></p>
+
+        </div>
+
+      </footer>
+
+    </div>
+
+
+
+  </div>
+
+
+
+  <!-- JavaScript Interaction Logic -->
+
+  <script src="script.js"></script>
+
+</body>
+
+
+
 </html>
